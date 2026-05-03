@@ -1,27 +1,35 @@
+/* 
+arduino_illusions.ino handles 
+- volume control 
+- switching between illusions
+*/
+
+// link files
 #include "shepard.h"
 #include "audio_setup.h"
 #include "missing_fundamental.h"
 
+// pin associated with mode switching pot
 byte CONTROL_PIN = A8;
 
 void setup() {
-  // put your setup code here, to run once:
-  setupAudioSystem();
-  setupShepardTone();
+  /* SETUP */
+  setupAudioSystem(); // initialize audio library (see audio_setup.cpp)
+  setupShepardTone(); // initilaize shepard (see shepard.cpp) 
 }
 
 void loop() {
-  volumeControl();
-  int control = analogRead(CONTROL_PIN);
+  /* LOOP */
+  volumeControl(); // update output volume
+  int control = analogRead(CONTROL_PIN); 
 
   switch(control) {
     case 200 ... 300:
-      shepard();
-      delay(10);
+      demonstrateMF();
       break;
 
     case 400 ... 500:
-      demonstrateMF();
+      shepard();
       break;
 
     default: 
