@@ -20,19 +20,25 @@ void setup() {
 
 void loop() {
   /* LOOP */
-  volumeControl(); // update output volume
+  volumeControl(); // update output volume (see audio_setup.cpp)
+  
+  // 10 bit pot value to switch between illusion modes
   int control = analogRead(CONTROL_PIN); 
 
   switch(control) {
+    /* Control which illusion is displaying */
     case 200 ... 300:
+      // missing fundamental (see missing_fundamental.cpp)
       demonstrateMF();
       break;
 
     case 400 ... 500:
+      // shepard tone (see shepard.cpp)
       shepard();
       break;
 
     default: 
+      // off by default
       stopShepard();
       stopMF();
       break; 
