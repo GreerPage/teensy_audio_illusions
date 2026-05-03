@@ -6,5 +6,6 @@
 // functions used is audio_illusions.ino
 void demonstrateMF();
 void stopMF();
+float getNoteFrequency(int potValue);
 
 #endif
