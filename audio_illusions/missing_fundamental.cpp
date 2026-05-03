@@ -84,36 +84,25 @@ void demonstrateMF() {
 
   int mode = analogRead(FILTER_CONTROL); // pot vlaue to control severity of filtration
   float freq = getNoteFrequency(analogRead(NOTE_CONTROL)); // pot value to determine note
+  int harmonicMult; // number to dictate level of filtration
 
   fundamental.begin(0.45, freq, WAVEFORM_TRIANGLE); // define the fundamental tone
+  
   switch (mode) {
     // control filtration 
     case 0 ... 509:
-      // play unfiltered tone
+      // play unfiltered tone (fundametal plays)
       playNormalTone();
       break;
 
     case 510 ... 1023:
-      highpass.setHighpass(0, freq + 50.0, 0.5);
-      playMissingFundamental();
-      break;
-
-    case 651 ... 750:
-      highpass.setHighpass(0, 2.0 * freq + 50.0, 0.707);
-      playMissingFundamental();
-      break;
-
-    case 751 ... 850:
-      highpass.setHighpass(0, 3.0 * freq + 50.0, 0.707);
-      playMissingFundamental();
-      break;
-
-    case 851 ... 950:
-      highpass.setHighpass(0, 4.0 * freq + 50.0, 0.707);
-      playMissingFundamental();
+      // play filtered signals (fundamental not played but is heard)
+      harmonicMult = map(mode, 510, 1023, 1, 5); // when 1, onlt the funda menal is filtered
+                                                 // when 5, the fund and first 4 harmonics are filtered
+      highpass.setHighpass(0, (float)harmonicMult * freq + 50.0, 0.7); // highpass filter
+      playMissingFundamental(); // play filtered tone
       break;
   }
-  delay(20);
 }
 
 void stopMF() {
