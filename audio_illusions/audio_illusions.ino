@@ -6,6 +6,7 @@ arduino_illusions.ino handles
 
 // link files
 #include "shepard.h"
+#include "binaural.h"
 #include "audio_setup.h"
 #include "missing_fundamental.h"
 
@@ -16,6 +17,7 @@ void setup() {
   /* SETUP */
   setupAudioSystem(); // initialize audio library (see audio_setup.cpp)
   setupShepardTone(); // initilaize shepard (see shepard.cpp) 
+  setupBinaural(); // setup binaural beats (see binaural.cpp)
 }
 
 void loop() {
@@ -28,11 +30,16 @@ void loop() {
   switch(control) {
     /* Control which illusion is playing */
     case 200 ... 300:
+      // demonstrate binaural beats
+      binauralBeats();
+      break;
+
+    case 400 ... 500:
       // demonstrate missing fundamental (see missing_fundamental.cpp)
       demonstrateMF();
       break;
 
-    case 400 ... 500:
+    case 600 ... 700:
       // play shepard tone (see shepard.cpp)
       shepard();
       break;
@@ -41,6 +48,7 @@ void loop() {
       // off by default
       stopShepard();
       stopMF();
+      stopBinaural();
       break; 
   } 
 }
