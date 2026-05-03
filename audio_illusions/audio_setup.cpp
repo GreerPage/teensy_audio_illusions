@@ -1,6 +1,7 @@
 /*
 audio_setup.cpp handles 
 - Initialization of teensy Audio library
+- Volume control
 - 
 */
 
@@ -30,5 +31,6 @@ void setupAudioSystem() {
 void volumeControl() {
   int pot = analogRead(VOLUME_PIN);
   float volume = pot / 2046.0;
-  sgtl5000.volume(volume);
+  if (volume < 0.002) sgtl5000.volume(0);
+  else sgtl5000.volume(volume);
 }
