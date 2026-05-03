@@ -1,38 +1,41 @@
-#include <Audio.h>
-#include <Wire.h>
-#include <SPI.h>
+/* 
+missing_fundamental.cpp demonstrates the mssing fundamental illusion:
+Using a high pass filter, the fundamental (lowest) tone can be removed from a frequency
+The mind will still perceive the original fundamental tone even though its not playing
+The mind uses the overtones (harmonics) to deduce the filtered fundamental
+This script can:
+- Play notes A2 to A4 to demonstrate the illusions
+- Filter out fundamental tone and multiple harmonics based on a potentiometer
+*/
 
 #include "audio_setup.h"
 #include "missing_fundamental.h"
 
 // Pots
-byte POT1 = A0;
-byte POT2 = A2;
-byte POT3 = A1;
+byte NOTE_CONTROL = A1;
+byte FILTER_CONTROL = A2;
 
 
-// Sustained oscillator
-AudioSynthWaveform richOsc;
 
-// Filter to remove the fundamental
-AudioFilterBiquad highpass;
-
-// Mixer
-AudioMixer4 mainMixer;
+AudioSynthWaveform fundamental; // create the wave object to be filtered 
+AudioFilterBiquad highpass; // filter to remove the fundamental
+AudioMixer4 mainMixer; // create a mixer to connect differnt frequencies
 
 // Routing
-AudioConnection cable1(richOsc, 0, mainMixer, 0); // normal tone
-AudioConnection cable2(richOsc, 0, highpass, 0);  // filtered tone
-AudioConnection cable3(highpass, 0, mainMixer, 1);
-
-AudioConnection cable4(mainMixer, 0, masterMixer, 1);
+AudioConnection cable1(fundamental, 0, mainMixer, 0); // normal tone to mixer channel 0
+AudioConnection cable2(fundamental, 0, highpass, 0);  // normal tome to filtered tone
+AudioConnection cable3(highpass, 0, mainMixer, 1); // filtered tone to mixer channel 1
+AudioConnection cable4(mainMixer, 0, masterMixer, 1); // patch to master
 
 float getNoteFrequency(int potValue) {
-  // Divide 1024 into 24 equal buckets (one per note)
+  /* Get a note frequency based on a potentiometer */
+
+  // divide 1024 into 24 equal buckets (one per note)
   int noteIndex = potValue / (1024 / 24);
-  
   float frequency;
+
   switch (noteIndex) {
+    // get note frequency
     case 0:  frequency = 110.00; break; // A2
     case 1:  frequency = 116.54; break; // A#2
     case 2:  frequency = 123.47; break; // B2
@@ -63,26 +66,34 @@ float getNoteFrequency(int potValue) {
 }
 
 void playNormalTone() {
-  mainMixer.gain(0, 0.45); // original signal
-  mainMixer.gain(1, 0.0);  // filtered signal 
+  /* play the fundamenal tone without filter */
+
+  mainMixer.gain(0, 0.45); // original signal on
+  mainMixer.gain(1, 0.0);  // filtered signal off
 }
 
 void playMissingFundamental() {
+  /* play the filtered tone (overtones) */
+
   mainMixer.gain(0, 0.0);  // original signal off
-  mainMixer.gain(1, 0.75); // filtered signal
+  mainMixer.gain(1, 0.75); // filtered signal on
 }
 
 void demonstrateMF() {
-  int mode = analogRead(POT2);
-  float freq = getNoteFrequency(analogRead(POT3));
+  /* Demo of the missing fundamental illusion */
 
-  richOsc.begin(0.45, freq, WAVEFORM_TRIANGLE);
+  int mode = analogRead(FILTER_CONTROL); // pot vlaue to control severity of filtration
+  float freq = getNoteFrequency(analogRead(NOTE_CONTROL)); // pot value to determine note
+
+  fundamental.begin(0.45, freq, WAVEFORM_TRIANGLE); // define the fundamental tone
   switch (mode) {
+    // control filtration 
     case 0 ... 509:
+      // play unfiltered tone
       playNormalTone();
       break;
 
-    case 510 ... 650:
+    case 510 ... 1023:
       highpass.setHighpass(0, freq + 50.0, 0.5);
       playMissingFundamental();
       break;
@@ -106,6 +117,7 @@ void demonstrateMF() {
 }
 
 void stopMF() {
-    mainMixer.gain(0, 0.0);
-    mainMixer.gain(1, 0.0);
+  /* Stop function for control in audio_illusions.ino */
+  mainMixer.gain(0, 0.0);
+  mainMixer.gain(1, 0.0);
 }
