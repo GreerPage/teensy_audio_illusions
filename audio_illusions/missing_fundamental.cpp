@@ -97,7 +97,7 @@ void demonstrateMF() {
 
     case 510 ... 1023:
       // play filtered signals (fundamental not played but is heard)
-      harmonicMult = map(mode, 510, 1023, 1, 5); // when 1, onlt the funda menal is filtered
+      harmonicMult = map(mode, 510, 1023, 1, 5); // when 1, onlt the fundamental is filtered
                                                  // when 5, the fund and first 4 harmonics are filtered
       highpass.setHighpass(0, (float)harmonicMult * freq + 50.0, 0.7); // highpass filter
       playMissingFundamental(); // play filtered tone
