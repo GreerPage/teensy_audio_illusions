@@ -26,14 +26,14 @@ void loop() {
   int control = analogRead(CONTROL_PIN); 
 
   switch(control) {
-    /* Control which illusion is displaying */
+    /* Control which illusion is playing */
     case 200 ... 300:
-      // missing fundamental (see missing_fundamental.cpp)
+      // demonstrate missing fundamental (see missing_fundamental.cpp)
       demonstrateMF();
       break;
 
     case 400 ... 500:
-      // shepard tone (see shepard.cpp)
+      // play shepard tone (see shepard.cpp)
       shepard();
       break;
 
