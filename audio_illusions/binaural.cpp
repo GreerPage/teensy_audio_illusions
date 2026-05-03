@@ -1,5 +1,9 @@
 #include "audio_setup.h"
 #include "binaural.h"
+#include "missing_fundamental.h"
+
+byte BASE_PIN = A1;
+byte BEAT_PIN = A2;
 
 AudioSynthWaveformSine base;
 AudioSynthWaveformSine beat;
@@ -17,8 +21,11 @@ void setupBinaural() {
 }
 
 void binauralBeats() {
-  base.frequency(440);
-  beat.frequency(444);
+  int beatAdd = map(analogRead(BEAT_PIN), 0, 1023, 1, 10);
+  float baseFrequency = getNoteFrequency(analogRead(BASE_PIN));
+  float beatFrequency = baseFrequency + (float)beatAdd;
+  base.frequency(baseFrequency);
+  beat.frequency(beatFrequency);
   base.amplitude(0.4);
   beat.amplitude(0.4);
 }
