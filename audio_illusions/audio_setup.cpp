@@ -1,3 +1,9 @@
+/*
+audio_setup.cpp handles 
+- Initialization of teensy Audio library
+- 
+*/
+
 #include "audio_setup.h"
 
 byte VOLUME_PIN = A0;
