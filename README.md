@@ -23,7 +23,7 @@ The Shepard tone is an endlessly rising pitch, think of a barber pole of sound. 
 
 ## Functionality
 ![Teensy w labels](media/teensy_labeled.png)
-#### Cycle through demonstrations of each illusion using  potentiometer 1. They are displayed in the order layed our below. 
+#### Cycle through demonstrations of each illusion using  potentiometer 1. They are displayed in the order layed out below. 
 Potentiometer 2 is used for master volume control of the device. Connect speakers or headphones to the headphone jack on the audio shield. 
 ### Binaural beats
 Select a base frequency using pot 4. This is chosen from the frequencies of notes A2 to A4 of the western musical scale. Pot 3 allows users to set the beat frequency.
