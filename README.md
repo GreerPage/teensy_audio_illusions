@@ -13,7 +13,7 @@ Written by Sam Miller and Greer Page for Dr. Barsic's CMPE 3815 - Microcontrolle
 ### Binaural Beats
 Two sine waves of almost identical frequencies are played simultaneously. The brain perceives a beating tone at the  frequency of the two waves' frequencies subtracted from eachother.
 
-For example: 440 and 444Hz are played, brain hears a 4Hz beating tone, even though nothing is oscillating at that frequdncy.
+For example: 440 and 444Hz are played, brain hears a 4Hz beating tone, even though nothing is oscillating at that frequency.
 
 ### Missing Fundamental
 Any tone apart from pure sine waves will have overtones. These overtones are harmonics of the fundamental tone, the lowes frequency and the tone perceived by the brain. Harmonics are simply just n multiples of the fundamental frequency. 
