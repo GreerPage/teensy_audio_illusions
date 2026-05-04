@@ -29,17 +29,17 @@ void loop() {
 
   switch(control) {
     /* Control which illusion is playing */
-    case 200 ... 300:
+    case 200 ... 400:
       // demonstrate binaural beats
       binauralBeats();
       break;
 
-    case 400 ... 500:
+    case 500 ... 700:
       // demonstrate missing fundamental (see missing_fundamental.cpp)
       demonstrateMF();
       break;
 
-    case 600 ... 700:
+    case 800 ... 1000:
       // play shepard tone (see shepard.cpp)
       shepard();
       break;
