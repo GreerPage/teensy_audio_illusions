@@ -5,7 +5,9 @@
 Written by Sam Miller and Greer Page for Dr. Barsic's CMPE 3815 - Microcontroller Systems at the University of Vermont. 
 
 ## Physical Setup
-![Teensy4.0 on Breadboard](media/teensy.jpeg)
+<p align="center">
+    <img src="media/teensy.jpeg" width="70%" alt="teensy4.0">
+</p>
 
 ## Illusions 
 ### Binaural Beats
@@ -22,7 +24,9 @@ The illusion is that by using a high pass filter, the fundamental base frequency
 The Shepard tone is an endlessly rising pitch, think of a barber pole of sound. It is created by simultaneously raising the pitch of several sine waves all an octave part. This creates a spectrum of high, middle, and low tones. These tones are controlled so that each time the highest tone reaches a threshold, it is reset to the lowest tone. This means that each wave is trapped within specified octaves. The trick is that as each wave reaches either end of the spectrum, low or high, its gain is tapered so that its reset is not clearly heard to the user. This creates the illusion of an endlessly rising tone. 
 
 ## Functionality
-![Teensy w labels](media/teensy_labeled.png)
+<p align="center">
+    <img src="media/teensy_labeled.png" width="70%" alt="teensy4.0">
+</p>
 #### Cycle through demonstrations of each illusion using  potentiometer 1. They are displayed in the order layed out below. 
 Potentiometer 2 is used for master volume control of the device. Connect speakers or headphones to the headphone jack on the audio shield. 
 ### Binaural beats
