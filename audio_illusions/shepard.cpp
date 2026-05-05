@@ -81,7 +81,7 @@ void setupShepardTone() {
 }
 
 float octavePosition(float x) {
-  /* Keeps all sine waves between 0th and 8th octave of base tone */
+  /* Keeps all sine waves between 1st and 8th octave of base tone */
 
   while (x >= NUM_OSC) x -= NUM_OSC;
   while (x < 0) x += NUM_OSC;
