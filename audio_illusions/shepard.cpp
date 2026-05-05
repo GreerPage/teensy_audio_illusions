@@ -110,7 +110,6 @@ void shepard() {
                                                          // this vlaue determines how quickly the waves rise in pitch
   phase += speed;
   if (phase >= 1.0) {
-    // if a wave has raised an octave, reset it to one octave lower
     phase -= 1.0;
   }
 
